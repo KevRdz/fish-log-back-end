@@ -16,6 +16,19 @@ function create (req, res) {
   })
 }
 
+function index (req, res) {
+  Fish.find({})
+  .populate('owner')
+  .then(fishes => {
+    res.json(fishes)
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({ err: err.errmsg})
+  })
+}
+
 export {
-  create
+  create,
+  index,
 }

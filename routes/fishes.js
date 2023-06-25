@@ -8,5 +8,6 @@ const router = Router()
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
 router.post('/', checkAuth, fishesCtrl.create)
+router.get('/', fishesCtrl.index)
 
 export { router }
