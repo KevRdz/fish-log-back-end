@@ -1,6 +1,6 @@
 import { Fish } from "../models/fish.js";
 
-function create (req, res) {
+async function create (req, res) {
   req.body.owner = req.user.profile
   Fish.create(req.body)
   .then(fish => {
