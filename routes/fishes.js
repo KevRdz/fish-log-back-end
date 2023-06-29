@@ -10,5 +10,6 @@ router.use(decodeUserFromToken)
 router.post('/', checkAuth, fishesCtrl.create)
 router.get('/', fishesCtrl.index)
 router.delete('/:id', checkAuth, fishesCtrl.delete)
+router.put('/:id', checkAuth, fishesCtrl.update)
 
 export { router }

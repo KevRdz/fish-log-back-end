@@ -46,8 +46,28 @@ function deleteOne(req, res) {
   })
 }
 
+function update(req, res) {
+  Fish.findById(req.params.id)
+  .then(fish => {
+    if (fish.owner._id.equals(req.user.profile)) {
+      Fish.findByIdAndUpdate(req.params.id, req.body, {new: true})
+      .populate('owner')
+      .then(updatedFish => {
+        res.json(updatedFish)
+      })
+    } else {
+      res.status(401).json({err: "Not authorized"})
+    }
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
 export {
   create,
   index,
   deleteOne as delete,
+  update,
 }
