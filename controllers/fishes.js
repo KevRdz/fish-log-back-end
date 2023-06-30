@@ -1,4 +1,5 @@
 import { Fish } from "../models/fish.js";
+import {v2 as cloudinary} from 'cloudinary'
 
 async function create (req, res) {
   req.body.owner = req.user.profile
@@ -65,9 +66,29 @@ function update(req, res) {
   })
 }
 
+function addPhoto(req, res) {
+  const imageFile = req.files.photo.path
+  Fish.findById(req.params.id)
+  .then(fish => {
+    cloudinary.uploader.upload(imageFile, {tags: `${fish.name}`})
+    .then(image => {
+      fish.photo = image.url
+      fish.save()
+      .then(fish => {
+        res.status(201).json(fish.photo)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json(err)
+    })
+  })
+}
+
 export {
   create,
   index,
   deleteOne as delete,
   update,
+  addPhoto,
 }
