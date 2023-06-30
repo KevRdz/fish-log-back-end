@@ -8,6 +8,13 @@ const fishSchema = new Schema({
   reel: {type: String, required: true},
   bait: {type: String, required:true},
   owner: {type: mongoose.Schema.Types.ObjectId, ref:"Profile"},
+  photo: {type: String},
+  date: {
+    type: Date, 
+    required: true, 
+    default: function() {
+    return new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+  }},
 }, {
   timestamps: true
 })
