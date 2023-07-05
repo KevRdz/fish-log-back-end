@@ -11,5 +11,6 @@ router.post('/', checkAuth, fishesCtrl.create)
 router.get('/', fishesCtrl.index)
 router.delete('/:id', checkAuth, fishesCtrl.delete)
 router.put('/:id', checkAuth, fishesCtrl.update)
+router.put('/:id/add-photo', checkAuth, fishesCtrl.addPhoto)
 
 export { router }
